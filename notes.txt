@@ -1,0 +1,295 @@
+Initial impressions 
+______________________________________________
+Looks like CRA is used to quickly get the skeleton files going 
+
+a lot easier than how it was for flask where I basically made my own 
+
+looks interesting and it sets up for testing too , discusses the file structure which is what the side project app looked like 
+
+looks like 12 videos and two assignments , I think I can get 1 done today for sure 
+
+______________________________________________
+What is CRA?
+______________________________________________
+
+we started with an index.html but we will be using a tool called Create React App using something called WebPack to get us going a lot faster 
+
+Goals:
+1. What is CRa? how to use it 
+2. Use ES 2015 modules to share code across files 
+
+react is a front end framework we dont need any server side 
+we can get it from a CDN 
+it can be messy though to include them on just a script tag 
+
+there is a better way and thats where CRA comes in 
+
+There was a lot of setup ahead of time before 
+
+put out by the facebook team and it is an integrated toolchain to help your React scale 
+
+we can't use npm modules if we are just doing everything on the client side 
+
+helps us set up linters 
+detect common mistakes 
+
+optimizes are output for production 
+
+it does a lot of stuff that we want it to do without having to configure 
+
+we do want the tool chain and all of the features 
+
+you dont have to download or setup a script 
+
+you use something called NPX 
+
+it is a fancier version of npm 
+in the past we would run npm install -g to make things global 
+
+
+
+______________________________________________
+Your First CRA App 
+______________________________________________
+
+Creates a skeleton react project
+
+sets it up so that JS files are run through babel automatically 
+
+we don't have to specify that they are JSX files 
+
+lets us use modern features 
+
+testing and deployment becomes pretty easy 
+
+it uses something called yarn not npm to install the files 
+
+dont need to touch it , it just shows your dependencies 
+
+gives us our index with a div and id of root 
+
+how do we start it?
+
+npm start 
+
+took a while but it did start 
+______________________________________________
+ES2015 Modules
+______________________________________________
+Lost the notes on these :[
+______________________________________________
+CRA First Component
+______________________________________________
+Lost the notes on these :[
+______________________________________________
+Breaking Up Components
+______________________________________________
+Lost the notes on these :[
+______________________________________________
+CRA Images and Assets
+______________________________________________
+we can still import and use these assets in our files 
+
+things like the react logo are being ijmported 
+
+all we are doing when we import the image is getting a url 
+
+we can import it in from our src file 
+
+and we can see if we console log it that it shows us where it is in the files 
+
+gives us a really easy way to access it 
+
+have to have the file extension, we are just saving the path to the source image 
+
+
+______________________________________________
+CSS With CRA
+______________________________________________
+when we create a new CRA we get the logo and default app.css styles 
+
+we can make sub directory and put everything in there
+
+at the end of the day put them in source 
+
+usually we would style by component
+
+we just import the file itself we don't need to place the css somewhere in the component 
+
+we are just saying that we want the css to be used 
+
+just making a css file is not going to include the file in the application 
+
+we need to import it and we do need the .css 
+
+it doesnt matter where we actually import it 
+
+but we are trying to mark to other developers that certain style sheets are linked to certain components 
+
+if we make changes to any of the files that we are importing , web pack is going to know when they are changed and automatically it will reload our browser 
+
+in production web pack will combine all of the css in one file 
+
+in development though, there are no style sheets and link tags for the app.css 
+
+if we inspect the elements it is adding in an inline style tag
+
+in production mode webpack will combine it all into one file and include that as a regular link 
+
+the page does not refresh at all when we save, web pack is aware of a change in the file and is going to automatically manipulate the dom and then it reloads the dom and does not refresh the page 
+
+it is nice to keep the code organized 
+
+next up pattern for writing style and naming classes 
+
+
+______________________________________________
+CSS Conventions
+______________________________________________
+
+how to add a css class
+a pattern that we can follow to style react files 
+
+a lot of the time you will have some component context , an li in certain components will look different from other li elements 
+
+we can easily use an id by just adding the attribute 
+
+but if we want to adda a class it is a little mroe difficult 
+
+there is a caveat that because jsx is in javascript there was concern about using the keyword class
+
+it can still work but it is a reserved word 
+
+we use className instead 
+
+it is what we use in jsx
+
+where should we write our styles 
+
+for styling css 
+
+commonly 
+
+-Make a CSS file fotr each React Component 
+-House.css for House component 
+
+-Import it at the top of House.js 
+-CRA will automatically load that CSS
+Convential to add className='House; onto House div 
+-use that as a prefix for sub-items to style 
+
+house-title
+house-address 
+
+that way we can easily identify where to find certain styling components 
+
+if you are working on a project with other developers it just makes it easier 
+
+we inserted a bunch of styles and that makes it easier for us to keep track of all the pieces styling our app 
+
+right now though all we have are static styles what if we want styles to change 
+
+
+______________________________________________
+Style Attributes
+______________________________________________
+we have seen that we can add a css element to any css classes 
+
+We might want different styles based on what a value is 
+
+we can inline CSS styles but now style takes a JS object 
+
+the object is used to set css styles so if we wanted to do it inline we could do somwething like this 
+
+<li style={{ color: 'magenta' }}>Price: ${price}</li>
+
+one thing though is that css properties are not camel cased
+inside of a javascript objects though we have to pass it in camelcased 
+
+so background-color becomes backgroundColor
+
+where this is useful is when I want styles that might be dynamic 
+
+you dont want to be defining all of your styles inline unless they were all dependent on props 
+
+if you wanted to make sure that every alert is in a rounded border 
+
+const Alert = ({ variant = 'success', children }) => {
+    const colors = {
+        success: 'green',
+        danger: 'red',
+        warning: 'yellow'
+    }
+    return (
+        <div style={{ backgroundColor: colors[variant] }}>
+            {children}
+        </div>
+    )
+}
+
+this is a way of changing the styles based on the props of a certain component
+
+
+______________________________________________
+React Fragments
+______________________________________________
+
+Quick topic 
+
+A common pattern in React is for a component to return multiple elements instead of just one 
+
+thats why we put everything in a div 
+
+in the past we would try to wrap them in a div 
+
+react comes with something called React.Fragment 
+
+it is just there to make React happy
+
+so we are going to get an error if we dont use the syntax React.Fragment
+
+its if we dont want that extra div in the dom 
+
+there is an even shorter syntax now 
+
+<>
+</>
+
+and this is a React.Fragment which is a way of grouping fragments together so that we dont need to wrap them in an additional meaningless div 
+
+
+______________________________________________
+React Dev Tools
+______________________________________________
+
+Install React Dev Tools for chrome
+
+and it shows us our component heirarchy 
+
+we can also change the styling and props 
+
+it is cool to be able to understand the components and these dev tools become really powerful when we talk about state 
+
+if we know what component and we are trying to find it in the heirarchy itll pop it up if we bring it up on the page 
+
+Profiler tab 
+
+can help us understand how things are rendered or rerendered but most of what we will use in the beginnning is the components tab 
+
+
+______________________________________________
+Fixing Warnings
+______________________________________________
+
+There are a couple of warning we should fix 
+if we use an image and we dont pass in an alt prop 
+
+we just fixed the errors pretty quickly
+______________________________________________
+ES 2015 Modules Exercise 
+______________________________________________
+
+______________________________________________
+React Props Pokedex
+______________________________________________
+
